@@ -14,26 +14,18 @@ if len(sys.argv) != 4:
 USER_ID = sys.argv[1]
 USER_PASSWD = sys.argv[2]
 
-# HTTP METHOD
-USE_POST_METHOD = True
-
 # USER MESSAGE
 MSG = sys.argv[3]
 
+getRequest = "/sendmsg?user=" + USER_ID + "&pass=" + USER_PASSWD + "&msg=" + MSG
 
-request = "/sendmsg?user=" + USER_ID + "&pass=" + USER_PASSWD + "&msg=" + MSG
-
-#conn = httplib.HTTPSConnection("smsapi.free-mobile.fr")
-conn = httplib.HTTPConnection("127.0.0.1:4444")
-
-if USE_POST_METHOD:
-    conn.request("POST", request)
-else:
-    conn.request("GET", request)
+conn = httplib.HTTPSConnection("smsapi.free-mobile.fr")
+conn.request("GET", getRequest)
 
 
 response = conn.getresponse()
+
+if response.status == 
 print response.status, response.reason
-print response.msg
 
 conn.close()
