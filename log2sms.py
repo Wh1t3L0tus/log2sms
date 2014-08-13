@@ -25,7 +25,6 @@ conn.request("GET", getRequest)
 
 response = conn.getresponse()
 
-if response.status == 
 print response.status, response.reason
 
 conn.close()
