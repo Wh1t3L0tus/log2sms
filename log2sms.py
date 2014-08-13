@@ -1,0 +1,39 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+import httplib, urllib, sys
+
+
+# Reading command-line arguments
+if len(sys.argv) != 4:
+    print "Usage : log2sms FreeMobile_ID FreeMobile_password message"
+    exit(1)
+
+
+# USER RELATED CONSTANTS
+USER_ID = sys.argv[1]
+USER_PASSWD = sys.argv[2]
+
+# HTTP METHOD
+USE_POST_METHOD = True
+
+# USER MESSAGE
+MSG = sys.argv[3]
+
+
+request = "/sendmsg?user=" + USER_ID + "&pass=" + USER_PASSWD + "&msg=" + MSG
+
+#conn = httplib.HTTPSConnection("smsapi.free-mobile.fr")
+conn = httplib.HTTPConnection("127.0.0.1:4444")
+
+if USE_POST_METHOD:
+    conn.request("POST", request)
+else:
+    conn.request("GET", request)
+
+
+response = conn.getresponse()
+print response.status, response.reason
+print response.msg
+
+conn.close()
